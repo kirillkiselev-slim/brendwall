@@ -53,6 +53,13 @@ pip install -r requirements.txt
 python manage.py createsuperuser
 ```
 
+## Создайте .env файл и перенесите его из brendwall/settings.py в .env
+
+
+```
+touch .env && echo "DJANGO_KEY=<ващ_ключ>" > .env
+```
+
 ## Запуск проекта 
 Запустите бекенд
 
