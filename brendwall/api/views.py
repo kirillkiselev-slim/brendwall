@@ -6,6 +6,8 @@ from api.serializers import ProductSerializer
 
 
 class ProductViewSet(viewsets.ModelViewSet):
+    """Моделвьюсет, который обрабатывает GET и POST запросы для продуктов."""
+
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     http_method_names = ('get', 'post')

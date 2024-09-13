@@ -9,6 +9,11 @@ from api.constants import (PRICE_LESS_THAN_ONE, PRODUCT_EXISTS,
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор проверяет уникальность продуктов при создании, также
+    проводит валидацию цены (не меньше 1 и должно быть десятичное число).
+    """
+
     name = serializers.CharField(
         max_length=128,
         validators=[UniqueValidator(queryset=Product.objects.all(),
@@ -20,6 +25,7 @@ class ProductSerializer(serializers.ModelSerializer):
             price_value = Decimal(price_value)
         except InvalidOperation:
             raise serializers.ValidationError(PRICE_NOT_DECIMAL)
+
         if price_value < 1:
             raise serializers.ValidationError(PRICE_LESS_THAN_ONE)
         return price_value
