@@ -47,6 +47,12 @@ cd brendwall
 pip install -r requirements.txt
 ```
 
+## Создайте суперюзера
+
+```
+python manage.py createsuperuser
+```
+
 ## Запуск проекта 
 Запустите бекенд
 
