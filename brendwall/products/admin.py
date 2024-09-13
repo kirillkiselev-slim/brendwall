@@ -4,6 +4,8 @@ from products.models import Product
 
 
 class ProductAdmin(admin.ModelAdmin):
+    """Админка Джанго с настройками."""
+
     empty_value_display = 'Не задано'
     list_display = (
         'name',

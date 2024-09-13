@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+</head>
+<body>
+    <h1>Add New Product</h1>
+    <form id="product-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Product List</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="product-list"></tbody>
+    </table>
+
+    <script>
+        // Function to fetch and display all products
+        function loadProducts() {
+            fetch('http://127.0.0.1:8000/api/products/')
+                .then(response => response.json())
+                .then(data => {
+                    const productList = document.getElementById('product-list');
+                    productList.innerHTML = '';  // Clear the current list
+                    data.forEach(product => {
+                        productList.innerHTML += `
+                            <tr>
+                                <td>${product.name}</td>
+                                <td>${product.description}</td>
+                                <td>${product.price}</td>
+                            </tr>
+                        `;
+                    });
+                });
+        }
+
+        // Initial load of product list
+        loadProducts();
+
+        // Handle form submission for adding new products
+        document.getElementById('product-form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent form from reloading the page
+
+            const formData = {
+                name: document.getElementById('name').value,
+                description: document.getElementById('description').value,
+                price: document.getElementById('price').value
+            };
+
+            // POST the new product to the API
+            fetch('http://127.0.0.1:8000/api/products/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Product added successfully!');
+                loadProducts();  // Reload the product list after adding
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
