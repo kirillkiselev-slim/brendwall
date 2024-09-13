@@ -62,6 +62,15 @@ cd .. && cd brendwall_frontend && python3 -m http.server 3000
 
 Пройдите на фронтенд по ссылке `http://localhost:3000/product.html`
 
+
+## Документация
+
+#### Swagger
+`http://127.0.0.1:8000/swagger/`
+
+#### Redoc
+`http://127.0.0.1:8000/redoc/`
+
 ## Примеры запросов для API
 
 ### 1-ый пример
